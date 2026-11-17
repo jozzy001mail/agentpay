@@ -95,3 +95,14 @@ naive unit test missed.
 - Kiro did not make up any test results, deployment addresses or testimonials.
   The `deployments/bsc-testnet.json` file contains placeholder addresses and
   instructions for the human to run the deploy script.
+
+## Deployment after Kiro (2026-11-17)
+
+The contracts were deployed on **Base Sepolia (chain 84532)**, not BSC
+testnet: the BSC testnet faucet gates claims on holding 0.002 BNB on BSC
+mainnet, which neither the deployer nor the user's wallet holds, so BSC was
+blocked without real money. The deploy itself was done with Foundry outside
+Kiro, using testnet funds bridged earlier for another project (all $0 real
+money). A full end-to-end flow (mint → createInvoice → pay → release) was
+verified live on Base Sepolia, invoice 0 ending RELEASED. The dashboard was
+deployed to Vercel. See `deployments/base-sepolia.json` for addresses.

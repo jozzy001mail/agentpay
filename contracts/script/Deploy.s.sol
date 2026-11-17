@@ -5,16 +5,20 @@ import "forge-std/Script.sol";
 import "../src/MockUSD.sol";
 import "../src/AgentPayEscrow.sol";
 
-/// @notice Deploy MockUSD + AgentPayEscrow to BSC testnet (chain 97).
+/// @notice Deploy MockUSD + AgentPayEscrow to Base Sepolia (chain 84532).
 ///
 /// Usage:
 ///   forge script script/Deploy.s.sol \
-///     --rpc-url https://bsc-testnet.bnbchain.org/api/v1/public \
+///     --rpc-url https://sepolia.base.org \
 ///     --broadcast \
 ///     --private-key $DEPLOYER_KEY
 ///
 /// Addresses are printed to stdout and must be recorded in
-/// deployments/bsc-testnet.json manually.
+/// deployments/base-sepolia.json manually.
+///
+/// Note: Base Sepolia was chosen over BSC testnet because the BSC testnet
+/// faucet gates claims on holding 0.002 BNB on BSC mainnet, which neither
+/// the deployer nor the user's wallet holds. The contracts are chain-agnostic.
 contract Deploy is Script {
     function run() external {
         uint256 deployerKey = vm.envUint("DEPLOYER_KEY");
@@ -37,9 +41,9 @@ contract Deploy is Script {
         console2.log("MockUSD:      ", address(mockUSD));
         console2.log("AgentPayEscrow:", address(escrow));
         console2.log("");
-        console2.log("Save to deployments/bsc-testnet.json:");
+        console2.log("Save to deployments/base-sepolia.json:");
         console2.log("{");
-        console2.log('  "chainId": 97,');
+        console2.log('  "chainId": 84532,');
         console2.log('  "mockUSD": "', address(mockUSD), '",');
         console2.log('  "escrow":  "', address(escrow), '"');
         console2.log("}");

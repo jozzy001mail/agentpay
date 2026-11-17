@@ -49,12 +49,21 @@ cd mcp-server && npm install && npm run build && node dist/index.js
 ```
 
 Environment for the MCP server / dashboard: `AGENTPAY_RPC_URL`,
-`AGENTPAY_ESCROW_ADDRESS`, `AGENTPAY_TOKEN_ADDRESS` (defaults: BSC testnet).
+`AGENTPAY_ESCROW_ADDRESS`, `AGENTPAY_TOKEN_ADDRESS` (defaults: Base Sepolia).
 
 ## Testnet
 
-BSC testnet (chain 97). `MockUSD` is a demo token with no value. Deployments
-are recorded in `deployments/bsc-testnet.json`.
+AgentPay is deployed on **Base Sepolia (chain 84532)**, not BSC testnet: the
+BSC testnet faucet gates claims on holding 0.002 BNB on BSC mainnet, which
+neither the deployer nor the user's wallet holds, so BSC was blocked without
+real money. The contracts are chain-agnostic. `MockUSD` is a demo token with
+no value. Live dashboard: https://agentpay-six-beryl.vercel.app. Deployments
+are recorded in `deployments/base-sepolia.json`
+(MockUSD `0x63E19d83d3d983021eB96b3f5405acA21cD6530C`, escrow
+`0xCaFa05aAc1CEDa6d51425480f7eCE7770aD4700E`, both Sourcify-verified). A full
+end-to-end flow (mint → createInvoice → pay → release) was verified live on
+Base Sepolia on 2026-11-17, invoice 0 ending RELEASED with the escrow
+balance back to 0.
 
 ## Honest notes
 
