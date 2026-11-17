@@ -88,7 +88,7 @@ export default function App() {
       <footer className="app-footer">
         <p>
           AgentPay — Kiroween 2026, Frankenstein category.{' '}
-          <a href="https://github.com/owoade/kiroween-agentpay" target="_blank" rel="noreferrer">GitHub</a>
+          <a href="https://github.com/jozzy001mail/agentpay" target="_blank" rel="noreferrer">GitHub</a>
           {' | '}
           Escrow is unaudited testnet code — do not use with real funds.
         </p>

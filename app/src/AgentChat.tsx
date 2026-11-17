@@ -31,6 +31,19 @@ export default function AgentChat({ demoMode }: Props) {
   const [pendingPayoutAddress, setPendingPayoutAddress] = useState('')
   const listRef = useRef<HTMLDivElement>(null)
 
+  // When demoMode toggles, update the greeting (index 0) to match the new mode.
+  // The rest of the conversation history is preserved.
+  useEffect(() => {
+    const greeting = demoMode
+      ? 'Hi! I\'m the AgentPay assistant (DEMO mode). Try: "Create a $25 invoice for delivery fee" or "Release invoice 1".'
+      : 'Hi! I\'m the AgentPay assistant. Try: "Create a $25 invoice for delivery fee", "Has invoice 3 been paid?", or "Release invoice 2".'
+    setMessages((ms) => {
+      const updated = [...ms]
+      updated[0] = { role: 'agent', text: greeting }
+      return updated
+    })
+  }, [demoMode])
+
   useEffect(() => {
     listRef.current?.scrollTo({ top: listRef.current.scrollHeight, behavior: 'smooth' })
   }, [messages])

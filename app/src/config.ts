@@ -1,6 +1,9 @@
 /**
  * Runtime configuration for the AgentPay dashboard.
  * Values are injected via Vite env vars (VITE_ prefix).
+ *
+ * InvoiceList uses invoiceCount() + getInvoice(i) instead of eth_getLogs, so
+ * no deploy-block constant is needed here.
  */
 
 export const config = {
@@ -15,5 +18,5 @@ export const config = {
     import.meta.env.VITE_TOKEN_ADDRESS ??
     "0x63E19d83d3d983021eB96b3f5405acA21cD6530C",
   /** Public base URL used to build shareable payment links. */
-  appUrl: import.meta.env.VITE_APP_URL ?? "https://agentpay.vercel.app",
+  appUrl: import.meta.env.VITE_APP_URL ?? "https://agentpay-six-beryl.vercel.app",
 } as const;

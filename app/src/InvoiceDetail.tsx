@@ -198,7 +198,7 @@ export default function InvoiceDetail({ invoiceId, demoMode, onBack }: Props) {
         <p className="tx-hash">
           Tx: {demoMode
             ? <code>{txHash}</code>
-            : <a href={`https://testnet.bscscan.com/tx/${txHash}`} target="_blank" rel="noreferrer">{txHash}</a>
+            : <a href={`https://sepolia.basescan.org/tx/${txHash}`} target="_blank" rel="noreferrer">{txHash}</a>
           }
         </p>
       )}

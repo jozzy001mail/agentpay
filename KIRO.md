@@ -106,3 +106,17 @@ Kiro, using testnet funds bridged earlier for another project (all $0 real
 money). A full end-to-end flow (mint → createInvoice → pay → release) was
 verified live on Base Sepolia, invoice 0 ending RELEASED. The dashboard was
 deployed to Vercel. See `deployments/base-sepolia.json` for addresses.
+
+## Demo-filming fixes (Kiro CLI session, post-deploy)
+
+Five issues found while filming the demo video were fixed in a single Kiro CLI
+session. The session read all affected files, made targeted edits, ran the full
+test suites (`forge test`, `npm test` in both `mcp-server/` and `app/`), and
+verified `npm run build`. Fixes: live invoice list now reads
+`invoiceCount()` + `getInvoice(i)` instead of eth_getLogs (a first pass used
+chunked ≤200-block log queries, then a follow-up session replaced that with
+the invoiceCount approach so it stays fast as the chain grows); corrected the
+GitHub footer link, Vercel app URL, and explorer links (BSC → Base Sepolia
+basescan); added a `useEffect` in `AgentChat` so the greeting updates when
+demo mode toggles; corrected a non-parsing chat example in `SUBMISSION.md`.
+See tasks.md §6 for detail.

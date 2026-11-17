@@ -82,3 +82,27 @@ run the tests named in each task before marking it done. Requirements are in
 - [ ] 5.5 Final check: `forge test` + `npm test` (app + mcp-server) green;
   README accurate; `.kiro/` committed and not ignored; repo public with
   MIT licence.
+
+## 6. Demo-filming fixes
+
+Five issues found while filming the demo video, fixed in a single Kiro CLI session.
+
+- [x] 6.1 **InvoiceList live mode** — `queryFilter` from block 0 hit the
+  sepolia.base.org 200-block eth_getLogs cap (error -32614). First fixed with
+  chunked ≤200-block windows, then refined to `invoiceCount()` +
+  `getInvoice(i)` for i in 0..count-1: 1 + N RPC calls, no eth_getLogs at
+  all, so it stays fast as the chain grows (Base Sepolia advances ~5
+  blocks/sec).
+- [x] 6.2 **Wrong links** — footer GitHub URL updated to
+  `https://github.com/jozzy001mail/agentpay`; `appUrl` default updated to
+  `https://agentpay-six-beryl.vercel.app`; transaction explorer links in
+  `InvoiceDetail.tsx` and `InvoiceForm.tsx` changed from `testnet.bscscan.com`
+  to `sepolia.basescan.org` (Base Sepolia explorer).
+- [x] 6.3 **Stale chat greeting** — `AgentChat.tsx` initial greeting was set
+  once in `useState` and never updated. Added a `useEffect` on `demoMode` that
+  replaces message index 0 with the correct greeting for the current mode,
+  preserving the rest of the conversation history.
+- [x] 6.4 **SUBMISSION.md chat example** — "charge Ada 50 dollars for the cake"
+  does not parse (no `invoice`/`create`/`make` keyword). Changed to the
+  working example "create a $50 invoice for Ada's cake".
+- [x] 6.5 **Test suites and build verified green** after all fixes.

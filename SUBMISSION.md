@@ -11,14 +11,14 @@ the live demo + video + registration are the only steps left.
 - **Team:** Owoade (solo) — Devpost jozzy001mail, GitHub jozzy001mail
 - **Live demo:** https://agentpay-six-beryl.vercel.app
 - **GitHub repo (public, MIT):** https://github.com/jozzy001mail/agentpay
-- **Demo video:** TBD — record after the live deploy (under 3 min, PUBLIC on YouTube)
+- **Demo video:** PUBLIC on YouTube — https://youtu.be/AhyNcE27C7g (1:42, 1280x720, 6 scenes; JOZZY GAMING channel)
 - **Deployed contracts (Base Sepolia 84532):** MockUSD `0x63E19d83d3d983021eB96b3f5405acA21cD6530C`, AgentPayEscrow `0xCaFa05aAc1CEDa6d51425480f7eCE7770aD4700E` (both Sourcify-verified; end-to-end flow mint → createInvoice → pay → release verified live 2026-11-17, invoice 0 RELEASED)
 
 ## Short description (paste-ready)
 
 AgentPay is stablecoin payment links for small businesses, built with Kiro.
-A shop owner creates an invoice in plain English — "charge Ada 50 dollars
-for the cake" — and AgentPay turns it into a payment link with a QR code.
+A shop owner creates an invoice in plain English — "create a $50 invoice for
+Ada's cake" — and AgentPay turns it into a payment link with a QR code.
 The customer pays in stablecoin, the money sits in an on-chain escrow, and
 the owner releases it when the job is done (or refunds it if it falls
 through). An MCP server exposes create-invoice, pay and release as tools, so
@@ -59,9 +59,9 @@ need a funded testnet wallet.
 - [x] Built 30 Oct – 4 Dec 2026 (started 17 Nov 2026)
 - [x] Public GitHub repo, open-source licence (MIT)
 - [x] `/.kiro` directory at repo root (specs, hooks, steering — not gitignored)
-- [x] Working app (built; live URL pending deploy)
-- [ ] Live demo URL (Vercel deploy in progress)
-- [ ] Demo video under 3 min, PUBLIC on YouTube
+- [x] Working app (built; live at https://agentpay-six-beryl.vercel.app)
+- [x] Live demo URL (https://agentpay-six-beryl.vercel.app)
+- [x] Demo video under 3 min, PUBLIC on YouTube — https://youtu.be/AhyNcE27C7g
 - [ ] Devpost registration (Owoade must tap "Join hackathon" on his phone — cloud browser cannot clear the Turnstile check)
 - [ ] Submit the Devpost form (after demo + video are live)
 - [ ] Student prize lane: Best Student Project ($1,500 + 1-year Kiro Pro Max) — needs LinkedIn profile, student email, year/degree, school (EKSU x Alayande); enrolment proof may be requested

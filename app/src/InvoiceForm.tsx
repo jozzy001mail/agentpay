@@ -153,7 +153,7 @@ export default function InvoiceForm({ demoMode, onCreated }: Props) {
 
       {txHash && (
         <p className="tx-hash">
-          Tx: <a href={`https://testnet.bscscan.com/tx/${txHash}`} target="_blank" rel="noreferrer">{txHash}</a>
+          Tx: <a href={`https://sepolia.basescan.org/tx/${txHash}`} target="_blank" rel="noreferrer">{txHash}</a>
         </p>
       )}
 

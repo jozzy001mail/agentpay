@@ -1,6 +1,14 @@
 /**
- * InvoiceList — shows all invoices from InvoiceCreated events.
+ * InvoiceList — shows all invoices for the connected escrow contract.
  * Read-only: uses a public JSON-RPC provider, no wallet needed.
+ *
+ * Live mode calls invoiceCount() to discover how many invoices exist, then
+ * fetches each one by index with getInvoice(i) for i in 0..count-1.  This
+ * costs 1 + N RPC calls regardless of how many blocks have passed since
+ * deployment, so it scales well as the chain grows.  eth_getLogs is not used
+ * in live mode: the public sepolia.base.org endpoint caps eth_getLogs at a
+ * 200-block range per request, which would require thousands of sequential
+ * calls as the chain ages.
  */
 import { useEffect, useState } from 'react'
 import { ethers } from 'ethers'
@@ -54,26 +62,25 @@ export default function InvoiceList({ demoMode, onSelectInvoice }: Props) {
         const provider = new ethers.JsonRpcProvider(config.rpcUrl)
         const escrow = new ethers.Contract(config.escrowAddress, ESCROW_ABI, provider)
 
-        // Fetch created events
-        const events = await escrow.queryFilter(escrow.filters.InvoiceCreated())
+        // One call to discover how many invoices exist, then one call per
+        // invoice.  Total: 1 + N RPCs.  No eth_getLogs needed.
+        const count = Number(await escrow.invoiceCount())
+
         if (cancelled) return
 
         const loaded: Invoice[] = await Promise.all(
-          events
-            .filter((e): e is ethers.EventLog => e instanceof ethers.EventLog)
-            .map(async (ev) => {
-              const id = Number(ev.args.id)
-              const inv = await escrow.getInvoice(BigInt(id))
-              return {
-                id,
-                token: inv.token,
-                merchant: inv.merchant,
-                payer: inv.payer,
-                amount: inv.amount,
-                expiry: inv.expiry,
-                status: inv.status as InvoiceStatus,
-              }
-            })
+          Array.from({ length: count }, async (_, i) => {
+            const inv = await escrow.getInvoice(BigInt(i))
+            return {
+              id: i,
+              token: inv.token,
+              merchant: inv.merchant,
+              payer: inv.payer,
+              amount: inv.amount,
+              expiry: inv.expiry,
+              status: inv.status as InvoiceStatus,
+            }
+          })
         )
         if (!cancelled) setInvoices(loaded)
       } catch (err) {
