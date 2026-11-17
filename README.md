@@ -11,8 +11,11 @@ spec-driven development — see `.kiro/specs/agentpay/` and `KIRO.md`.
 
 ## Status
 
-🚧 In build. Spec + scaffolding are in; implementation runs through Kiro CLI
-tasks in `.kiro/specs/agentpay/tasks.md` once Kiro sign-in is complete.
+✅ Implementation complete. All tests pass:
+- `forge test` — 42 tests (unit, fuzz, invariant, PBT) green
+- `npm test` (mcp-server) — 16 tests green
+- `npm test` (app) — 40 tests green
+- `npm run build` (app) — production build succeeds
 
 ## How it works
 

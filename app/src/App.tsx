@@ -1,122 +1,98 @@
+/**
+ * AgentPay dashboard — root component.
+ *
+ * Pages: Create Invoice | Invoice List | Invoice Detail
+ * Agent chat panel always visible on the right (desktop).
+ * Demo mode toggle: labelled DEMO, no wallet or real funds needed.
+ */
 import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
+import InvoiceForm from './InvoiceForm'
+import InvoiceList from './InvoiceList'
+import InvoiceDetail from './InvoiceDetail'
+import AgentChat from './AgentChat'
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+type Page = 'create' | 'list' | 'detail'
+
+export default function App() {
+  const [demoMode, setDemoMode] = useState(true) // safe default
+  const [page, setPage] = useState<Page>('list')
+  const [selectedInvoiceId, setSelectedInvoiceId] = useState<number | null>(null)
+
+  function goToDetail(id: number) {
+    setSelectedInvoiceId(id)
+    setPage('detail')
+  }
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+    <div className="app-layout">
+      {/* ── Header ──────────────────────────────────────────────────── */}
+      <header className="app-header">
+        <div className="header-left">
+          <span className="logo">🧪 AgentPay</span>
+          <span className="tagline">Stablecoin payment links</span>
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+        <nav className="app-nav">
+          <button className={page === 'list' ? 'nav-active' : ''} onClick={() => setPage('list')}>Invoices</button>
+          <button className={page === 'create' ? 'nav-active' : ''} onClick={() => setPage('create')}>Create</button>
+        </nav>
+        <label className="demo-toggle">
+          <input
+            type="checkbox"
+            checked={demoMode}
+            onChange={(e) => setDemoMode(e.target.checked)}
+            role="switch"
+          />
+          {demoMode ? '🔬 DEMO MODE ON' : 'DEMO MODE OFF'}
+        </label>
+      </header>
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
+      {demoMode && (
+        <div className="demo-global-banner">
+          DEMO — simulated flow, no real funds, unaudited testnet code
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+      )}
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+      {/* ── Main area ───────────────────────────────────────────────── */}
+      <div className="app-body">
+        <main className="app-main">
+          {page === 'create' && (
+            <InvoiceForm
+              demoMode={demoMode}
+              onCreated={(id) => { setSelectedInvoiceId(id); setPage('detail') }}
+            />
+          )}
+          {page === 'list' && (
+            <>
+              <InvoiceList demoMode={demoMode} onSelectInvoice={goToDetail} />
+              <div style={{ marginTop: '1rem' }}>
+                <button onClick={() => setPage('create')}>+ Create Invoice</button>
+              </div>
+            </>
+          )}
+          {page === 'detail' && selectedInvoiceId !== null && (
+            <InvoiceDetail
+              invoiceId={selectedInvoiceId}
+              demoMode={demoMode}
+              onBack={() => setPage('list')}
+            />
+          )}
+        </main>
+
+        {/* ── Agent chat panel ──────────────────────────────────────── */}
+        <aside className="app-chat">
+          <AgentChat demoMode={demoMode} />
+        </aside>
+      </div>
+
+      <footer className="app-footer">
+        <p>
+          AgentPay — Kiroween 2026, Frankenstein category.{' '}
+          <a href="https://github.com/owoade/kiroween-agentpay" target="_blank" rel="noreferrer">GitHub</a>
+          {' | '}
+          Escrow is unaudited testnet code — do not use with real funds.
+        </p>
+      </footer>
+    </div>
   )
 }
-
-export default App

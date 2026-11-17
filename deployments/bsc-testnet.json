@@ -1,0 +1,6 @@
+{
+  "chainId": 97,
+  "note": "Deploy with: forge script script/Deploy.s.sol --rpc-url https://bsc-testnet.bnbchain.org/api/v1/public --broadcast --private-key $DEPLOYER_KEY",
+  "mockUSD": "0x0000000000000000000000000000000000000000",
+  "escrow": "0x0000000000000000000000000000000000000000"
+}
