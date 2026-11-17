@@ -1,0 +1,10 @@
+node_modules/
+dist/
+out/
+cache/
+coverage/
+.env
+.env.*
+*.local
+.DS_Store
+# NOTE: .kiro/ is intentionally NOT ignored — Kiroween requires it committed.

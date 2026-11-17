@@ -1,0 +1,1 @@
+{"mcpServers":{"agentpay":{"args":["mcp-server/dist/index.js"],"autoApprove":["get_invoice","list_invoices"],"command":"node","disabled":false,"env":{"AGENTPAY_ESCROW_ADDRESS":"","AGENTPAY_RPC_URL":"https://data-seed-prebsc-1-s1.binance.org:8545","AGENTPAY_TOKEN_ADDRESS":""}}}}

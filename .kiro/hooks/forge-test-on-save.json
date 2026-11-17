@@ -1,0 +1,1 @@
+{"hooks":[{"action":{"command":"forge test --root contracts","type":"command"},"description":"Run the Foundry test suite whenever a Solidity file in contracts/src changes, so escrow regressions are caught at once.","matcher":"contracts/src/.*\\.sol$","name":"Forge test on contract save","timeout":300,"trigger":"PostFileSave"}],"version":"v1"}

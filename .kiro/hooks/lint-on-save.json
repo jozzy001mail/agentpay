@@ -1,0 +1,1 @@
+{"hooks":[{"action":{"command":"npm --prefix app run lint 2>/dev/null || npx --prefix app eslint --fix","type":"command"},"description":"Run ESLint on TypeScript files whenever the agent saves one, so style and type errors surface immediately.","matcher":"\\.(ts|tsx)$","name":"Lint on save","timeout":120,"trigger":"PostFileSave"}],"version":"v1"}
